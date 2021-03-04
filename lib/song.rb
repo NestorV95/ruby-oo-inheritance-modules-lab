@@ -1,21 +1,18 @@
 require 'pry'
 
 class Song
-  attr_accessor :name
-  attr_reader :artist
+  attr_accessor :name, :artist
 
-  @@songs = []
+  @@all = []
 
-  def initialize
-    @@songs << self
-  end
-
-  def self.find_by_name(name)
-    @@songs.detect{|a| a.name == name}
+  def initialize(name, artist)
+    @name = name
+    @artist = artist #points to object
+    self.class.all << self
   end
 
   def self.all
-    @@songs
+    @@all
   end
 
   def self.reset_all
@@ -26,11 +23,8 @@ class Song
     self.all.count
   end
 
-  def artist=(artist)
-    @artist = artist
-  end
-
   def to_param
     name.downcase.gsub(' ', '-')
   end
+
 end
